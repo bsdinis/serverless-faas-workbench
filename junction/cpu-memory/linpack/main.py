@@ -31,7 +31,6 @@ def linpack(N):
 
 
 def function_handler(request_json):
-    #request_json = request.get_json(silent=True)
     N = request_json['N']
     result = linpack(N)
     return "latency : " + str(result['latency']) + " mflops : " + str(result['mflops'])

@@ -11,7 +11,6 @@ def float_operation(N):
     return latency
 
 def function_handler(request_json):
-    #request_json = request.get_json(silent=True)
     N = request_json['N']
     latency = float_operation(N)
     return "latency : " + str(latency)

@@ -19,12 +19,9 @@ tal:content="python: d" />
 
 
 def function_handler(request_json):
-    #request_json = request.get_json(silent=True)
     num_of_rows = request_json['num_of_rows']
     num_of_cols = request_json['num_of_cols']
-
-    #message = generate(length_of_message)
-
+    
     # 128-bit key (16 bytes)
     KEY = b'\xa1\xf6%\x8c\x87}_\xcd\x89dHE8\xbf\xc9,'
 

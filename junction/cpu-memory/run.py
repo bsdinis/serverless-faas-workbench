@@ -5,10 +5,9 @@ import os
 import signal
 
 programs = {"chameleon", "float_operation", 
-            "linpack", "matmul", "pyaes"}
+            "linpack", "matmul", "pyaes", "image_processing"}
 
-unsupported = {"image_processing", "mapreduce", 
-                "model_serving", "model_training"}
+unsupported = {"mapreduce", "model_serving", "model_training"}
 
 if len(sys.argv) != 3:
     print("usage: run.py <program-name> <json>")

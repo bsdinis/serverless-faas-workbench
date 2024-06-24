@@ -1,10 +1,10 @@
-import importlib 
+import importlib
 import sys
 import json
 import os
 import signal
 
-PATH_TO_FBENCH = "/home/lana/serverless-faas-workbench/"
+PATH_TO_FBENCH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 default_jsons = {
     "chameleon": '{"num_of_rows": 3, "num_of_cols": 4}',
@@ -28,7 +28,7 @@ prog = sys.argv[1]
 
 if prog not in default_jsons:
     print(f"error: {prog} not in {default_jsons.keys()}")
-    exit() 
+    exit()
 
 json_string = default_jsons[prog]
 if len(sys.argv) == 3:

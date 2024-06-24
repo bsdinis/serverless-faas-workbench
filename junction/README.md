@@ -7,7 +7,7 @@ cd serverless-faas-workbench/junction
 ./setup_venv.sh
 ```
 ### Adjust the Repository Directory in the Code
-In `serverless-faas-workbench/junction/run.py`, adjust `PATH_TO_FBENCH` to your local source path of the repository
+todo: fix cnn_servering/main.py
 
 ## Running on Junction 
 ```

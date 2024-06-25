@@ -3,8 +3,9 @@ import sys
 import json
 import os
 import signal
+import time
 
-PATH_TO_FBENCH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+PATH_TO_FBENCH = str(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))) + "/"
 
 default_jsons = {
     "chameleon": '{"num_of_rows": 3, "num_of_cols": 4}',
@@ -45,10 +46,17 @@ main = importlib.import_module(f"{prog}.main")
 for i in range(10):
     print(main.function_handler(json_req))
 
+start = time.perf_counter_ns()
+main.function_handler(json_req)
+end = time.perf_counter_ns()
+print(f"stopping. one warm iteration takes {(end - start) / 1000.0} us)")
+sys.stdout.flush()
 os.kill(os.getpid(), signal.SIGSTOP)
-
+start = time.perf_counter_ns()
 print(main.function_handler(json_req))
-
+end = time.perf_counter_ns()
+print(f"stopping. one cold iteration takes {(end - start) / 1000.0} us)")
+sys.stdout.flush()
 os.kill(os.getpid(), signal.SIGSTOP)
 
 

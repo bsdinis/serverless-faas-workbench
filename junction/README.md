@@ -6,9 +6,6 @@ All the necessary Python libraries for running the functions can be installed wi
 cd serverless-faas-workbench/junction
 ./setup_venv.sh
 ```
-### Adjust the Repository Directory in the Code
-todo: fix cnn_servering/main.py
-
 ## Running on Junction 
 ```
 build/junction/junction_run <config_file> --ld_preload -- <repo_path>/junction/venv/bin/python3 <repo_path>/junction/run.py <function_name>

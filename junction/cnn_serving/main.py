@@ -17,14 +17,15 @@ import numpy as np
 import uuid
 import json
 from time import time
+import os
 
 sq1x1 = "squeeze1x1"
 exp1x1 = "expand1x1"
 exp3x3 = "expand3x3"
 relu = "relu_"
 
-HOME_DIR = "/home/lana/"
 
+PATH_TO_FBENCH = str(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 
 # Modular function for Fire Node
 def fire_module(x, fire_id, squeeze=16, expand=64):
@@ -130,7 +131,7 @@ def SqueezeNet(include_top=True, weights='imagenet',
 
     # load weights
     if weights == 'imagenet':
-        weights_path = "/home/lana/serverless-faas-workbench/dataset/model/squeezenet_weights_tf_dim_ordering_tf_kernels.h5"
+        weights_path = f"{PATH_TO_FBENCH}/dataset/model/squeezenet_weights_tf_dim_ordering_tf_kernels.h5"
         model.load_weights(weights_path)
 
         if K.image_data_format() == 'channels_first':

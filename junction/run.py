@@ -42,10 +42,12 @@ if prog == "chameleon" or prog == "pyaes":
     prog += "1"
 
 main = importlib.import_module(f"{prog}.main")
+print("starting")
+sys.stdout.flush()
 
 for i in range(10):
-    print(main.function_handler(json_req))
-
+    print(f" iter {i} {main.function_handler(json_req)}")
+    sys.stdout.flush()
 start = time.perf_counter_ns()
 main.function_handler(json_req)
 end = time.perf_counter_ns()
@@ -55,9 +57,9 @@ os.kill(os.getpid(), signal.SIGSTOP)
 start = time.perf_counter_ns()
 print(main.function_handler(json_req))
 end = time.perf_counter_ns()
-print(f"stopping. one cold iteration takes {(end - start) / 1000.0} us)")
+print(f"done. one cold iteration takes {(end - start) / 1000.0} us)")
 sys.stdout.flush()
-os.kill(os.getpid(), signal.SIGSTOP)
+#os.kill(os.getpid(), signal.SIGSTOP)
 
 
 

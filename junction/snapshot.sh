@@ -33,23 +33,28 @@ function snapshot_function() {
     PREFIX="/tmp/functionbench/$1"
     rm -f "${PREFIX}*"
 
-    kill_junction 5 &
-    ${JUNCTION_BIN} ${CALADAN_CONFIG} --ld_preload -S 1 --snapshot-prefix /tmp/functionbench/$1 -- ${JUNCTION_FAAS_DIR}/venv/bin/python3 ${JUNCTION_FAAS_DIR}/run.py $1 &
-    wait
+    ${JUNCTION_BIN} ${CALADAN_CONFIG} -S 1 --snapshot-prefix ${PREFIX} -- ${JUNCTION_FAAS_DIR}/venv/bin/python3 ${JUNCTION_FAAS_DIR}/run.py $1
 }
+
+function restore_function() {
+    PREFIX="/tmp/functionbench/$1"
+
+    ${JUNCTION_BIN} ${CALADAN_CONFIG} -r -- ${PREFIX}.metadata ${PREFIX}.elf
+}
+
 
 function_names=(
 "chameleon"             # 0
 "float_operation"       # 1
-"linpack"               # 2: not working
+"linpack"               # 2
 "matmul"                # 3
 "pyaes"                 # 4
 "image_processing"      # 5
 "rnn_serving"           # 6
-"json_serdes"           # 7
-"video_processing"      # 8
-"lr_training"           # 9: not working
-"cnn_serving"           # 10: not working
+"video_processing"      # 7
+"lr_training"           # 8
+"json_serdes"           # 9: restore broken
+"cnn_serving"           # 10: not supported
 )
 
 mkdir -p /tmp/functionbench/
@@ -58,8 +63,10 @@ if [[ -z "$FUNCTION" ]]; then
     for fname in ${function_names[@]}; do
         echo "$fname"
         snapshot_function $fname
+	restore_function $fname
     done
 else
     echo "$FUNCTION"
     snapshot_function $FUNCTION
+	restore_function $fname
 fi
